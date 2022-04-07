@@ -1,7 +1,6 @@
-package web
+package main
 
 import (
-	"fmt"
 	"html/template"
 	"net/http"
 	"net/url"
@@ -19,29 +18,13 @@ type ViewData struct {
 
 // home Главный обработчик
 func home(w http.ResponseWriter, r *http.Request) {
-	//if r.URL.Path != "/" {
-	//	fmt.Print("n")
-	//	r.ParseForm() //анализ аргументов,
-	//	fmt.Println(r.Form)  // ввод информации о форме на стороне сервера
-	//	fmt.Println("path", r.URL.)
-	//	fmt.Println("scheme", r.URL.Scheme)
-	//	fmt.Println(r.Form["url_long"])
-	//	for k, v := range r.Form {
-	//		fmt.Println("key:", k)
-	//		fmt.Println("val:", strings.Join(v, ""))
-	//	}
-	//	http.NotFound(w, r)
-	//	return
-	//}
 
 	if r.Method == http.MethodPost {
-		fmt.Print("p")
 		homePost(w, r)
 		return
 	}
 
 	if r.Method == http.MethodGet {
-		fmt.Print("g")
 		homeGet(w, r)
 		return
 	}
@@ -54,7 +37,10 @@ func homeGet(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Internal Server Error", 500)
 		return
 	}
+
+	//создаем вариант ViewData заполненый дефолтными значениями
 	defaultData := ViewData{"10", "10", "1", false, "", nil}
+
 	err = ts.Execute(w, defaultData)
 	if err != nil {
 		http.Error(w, "Internal Server Error", 500)
@@ -73,20 +59,25 @@ func getViewData(values url.Values) ViewData {
 
 // homePost Обработчик для запросов POST к главной странице
 func homePost(w http.ResponseWriter, r *http.Request) {
+	//Получаем двнные из формы и создаем экземпляр ViewData
 	r.ParseForm()
 	data := getViewData(r.Form)
-	arr, genErr := genRand(data)
 
+	//Генерируем случайные числа и проверяем не произошла ли ошибка
+	arr, genErr := genRand(data)
 	if genErr == nil {
+		//Заполняем поля ViewData сгенерированными числами
 		data.Result = true
 		data.Message = "Генерация успешна"
 		data.Arr = arr
 	} else {
+		//Не получилось сгенерировать числа, обрабатываем ошибку
 		data.Result = false
 		data.Message = genErr.Error()
 		data.Arr = nil
 	}
 
+	//Отправляем заполненную ViewData на клиент
 	tmpl, err := template.ParseFiles("./ui/html/index.html")
 	if err != nil {
 		http.Error(w, "Internal Server Error", 500)
