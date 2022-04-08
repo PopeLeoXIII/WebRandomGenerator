@@ -64,7 +64,7 @@ func homePost(w http.ResponseWriter, r *http.Request) {
 	data := getViewData(r.Form)
 
 	//Генерируем случайные числа и проверяем не произошла ли ошибка
-	arr, genErr := genRand(data)
+	arr, genErr := genRandFromViewData(data)
 	if genErr == nil {
 		//Заполняем поля ViewData сгенерированными числами
 		data.Result = true

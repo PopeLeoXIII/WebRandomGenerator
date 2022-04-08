@@ -8,6 +8,11 @@ import (
 	"time"
 )
 
+// genContext Данные необходимые для генерации случайных чисел (параметры генератора)
+type genContext struct {
+	n, maxValue, genN, cb int
+}
+
 // gen генерирует случайные числа
 func gen(c chan<- int, maxValue int) {
 	for {
@@ -33,11 +38,6 @@ func counter(c <-chan int, n int) []int {
 		}
 	}
 	return result
-}
-
-// genContext Данные необходимые для генерации случайных чисел (параметры генератора)
-type genContext struct {
-	n, maxValue, genN, cb int
 }
 
 // checkData Проверяет правильность поступивших данных
@@ -66,13 +66,7 @@ func checkData(data ViewData) (genContext, error) {
 	return context, nil
 }
 
-// genRand Запускает генерацию случайных чисел
-func genRand(data ViewData) ([]int, error) {
-	//Проверяем входные данные
-	context, err := checkData(data)
-	if err != nil {
-		return nil, err
-	}
+func genRandFromGenContext(context genContext) ([]int, error) {
 	//Генерируем зерно для rand
 	rand.Seed(time.Now().UnixNano())
 	//Создаем канал в которм будут передаваться генерируемые случайные числа
@@ -88,4 +82,15 @@ func genRand(data ViewData) ([]int, error) {
 	//Сортируем полученный срез случайных чисел
 	sort.Ints(arr)
 	return arr, nil
+}
+
+// genRand Запускает генерацию случайных чисел
+func genRandFromViewData(data ViewData) ([]int, error) {
+	//Проверяем входные данные
+	context, err := checkData(data)
+	if err != nil {
+		return nil, err
+	}
+
+	return genRandFromGenContext(context)
 }
