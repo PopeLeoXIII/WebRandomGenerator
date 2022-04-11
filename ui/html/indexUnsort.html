@@ -2,28 +2,29 @@
 <html lang="en">
 <head>
     <title>Go WebSocket Tutorial</title>
+    <script src="../static/scriptUnsort.js" type="text/javascript" ></script>
+    <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
     <h2 id="h2">Генератор случайных чисел </h2>
     <div id="modal" class="modal">
         <div class="modal-content">
             <p><b>Количество чисел:</b><br>
-                <input type="text" id="nInput" size="40" value={{ .NInput}}>
+                <input type="text" name="nInput" id="nInput" size="40" value={{ .NInput}}>
             </p>
             <p><b>Максимальное значение:</b><br>
-                <input type="text" id="maxInput" size="40"  value={{ .MaxInput}}>
+                <input type="text" name="maxInput" id="maxInput" size="40"  value={{ .MaxInput}}>
             </p>
             <p><b>Число генераторов:</b><br>
-                <input type="text"  id="genNInput" size="40"  value={{ .GenNInput}}>
+                <input type="text" name="genNInput" id="genNInput" size="40"  value={{ .GenNInput}}>
             </p>
-            <p><button  id="submitBut" style="width:80px;height:30px;" >Вычислить</button>
-                <button  id="resetBut" style="width:80px;height:30px;" >Очистить</button>
+            <p><button  id="submitBut" style="width:80px;height:30px;" onclick="gen()">Вычислить</button>
+                <button  id="resetBut" style="width:80px;height:30px;" onclick="myreset()">Очистить</button>
             </p>
         </div>
     </div>
     <p><b id="resultStr">{{ .Message}}</b><br>
     <ul id="ul">
     </ul>
-    <script src="../static/scriptUnsort.js" ></script>
 </body>
 </html>

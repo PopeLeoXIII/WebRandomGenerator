@@ -31,7 +31,6 @@ function createWS(msg){
     return socket
 }
 
-
 function gen() {
     ul.innerHTML = "";
     let msg = "?n=" + nInput.value + "&max=" + maxInput.value  + "&genn=" +  genNInput.value;
@@ -39,20 +38,20 @@ function gen() {
 }
 
 function myreset() {
-    document.getElementById("nInput").setAttribute("value", "") ;
-    maxInput.setAttribute("value", "") ;
-    genNInput.setAttribute("value", "") ;
+    document.getElementById("nInput").value = "";
+    document.getElementById("maxInput").value = "";
+    document.getElementById("genNInput").value = "";
 
     alert("Данные очищены");
 }
 
-submitBut.onclick = function(){
-    gen();
-}
+// submitBut.onclick = function(){
+//     gen();
+// }
 
-resetBut.onclick = function(){
-    myreset();
-}
+// resetBut.onclick = function(){
+//     myreset();
+// }
 
 function addEl(msg) {
     ul.insertAdjacentHTML('beforeend',"<li>" + msg + "</li>");

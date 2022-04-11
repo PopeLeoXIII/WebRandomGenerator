@@ -42,9 +42,9 @@ function gen() {
 }
 
 function myreset() {
-    document.getElementById("nInput").setAttribute("value", "") ;
-    maxInput.setAttribute("value", "") ;
-    genNInput.setAttribute("value", "") ;
+    document.getElementById("nInput").value = "";
+    document.getElementById("maxInput").value = "";
+    document.getElementById("genNInput").value = "";
 
     alert("Данные очищены");
 }
