@@ -8,27 +8,22 @@
     <div id="modal" class="modal">
         <div class="modal-content">
             <p><b>Количество чисел:</b><br>
-                <input type="text" id="nInput" size="40" value="10">
+                <input type="text" id="nInput" size="40" value={{ .NInput}}>
             </p>
             <p><b>Максимальное значение:</b><br>
-                <input type="text" id="maxInput" size="40"  value="10">
+                <input type="text" id="maxInput" size="40"  value={{ .MaxInput}}>
             </p>
             <p><b>Число генераторов:</b><br>
-                <input type="text"  id="genNInput" size="40"  value="1">
+                <input type="text"  id="genNInput" size="40"  value={{ .GenNInput}}>
             </p>
-            <p><button  id="submitBut" style="width:80px;height:30px;" onclick=" !!!" >Вычислить</button>
+            <p><button  id="submitBut" style="width:80px;height:30px;" >Вычислить</button>
                 <button  id="resetBut" style="width:80px;height:30px;" >Очистить</button>
             </p>
         </div>
     </div>
+    <p><b id="resultStr">{{ .Message}}</b><br>
     <ul id="ul">
     </ul>
-    <script>
-        // submitBut.onclick = function(){
-        //     var xhr = new XMLHttpRequest();
-        //     xhr.open('GET', 'http://localhost:8080/ws?n=10', false);
-        //     xhr.send();
-        // }
-    </script>
+    <script src="../static/scriptUnsort.js" ></script>
 </body>
 </html>

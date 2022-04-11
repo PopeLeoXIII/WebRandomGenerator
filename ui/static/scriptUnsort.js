@@ -7,8 +7,8 @@ let genNInput = document.getElementById("genNInput");
 
 let ul = document.getElementById("ul");
 
-function createWS(){
-    let socket = new WebSocket("ws://localhost:8080/wsocket");
+function createWS(msg){
+    let socket = new WebSocket("ws://localhost:8080/wsocket" + msg);
     console.log("Attempting Connection...");
 
     socket.onopen = () => {
@@ -33,12 +33,9 @@ function createWS(){
 
 
 function gen() {
-    createWS();
-    let msg = "?n=" + nInput.value + "&max=" + maxInput.value  + "&genn=" +  genNInput.value;
     ul.innerHTML = "";
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:8080/ws'+msg, true);
-    xhr.send();
+    let msg = "?n=" + nInput.value + "&max=" + maxInput.value  + "&genn=" +  genNInput.value;
+    createWS(msg);
 }
 
 function myreset() {
@@ -59,13 +56,4 @@ resetBut.onclick = function(){
 
 function addEl(msg) {
     ul.insertAdjacentHTML('beforeend',"<li>" + msg + "</li>");
-}
-
-
-function addElHard(msg) {
-    let div = document.createElement('div');
-    div.className = "alert";
-    div.innerHTML = msg;
-
-    document.body.append(div);
 }
